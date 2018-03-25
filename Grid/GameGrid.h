@@ -4,8 +4,13 @@ class GameGrid
 {
 public:
 	GameGrid();
-	void printGameGrid(Marks*);
 	void printGameGrid();
+	void printNumberedGameGrid() const;
+	void markArea(Marks*, int);
+	enum position{};
 	~GameGrid();
+private:
+	char a, b, c, d, e, f, g, h, i;
+
 };
 
