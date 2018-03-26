@@ -5,47 +5,83 @@
 #include "Grid\GameGrid.h"
 
 void markChoice();
-
+void printNumberGrid();
 
 int main()
 {
-	std::cout << "Welcome to this game of TicTacToe\n\n" << std::endl;
-	GameGrid* gridMain = new GameGrid;
-	gridMain->printNumberedGameGrid();
+	std::cout << "Welcome to this game of Tic Tac Toe\n\n" << std::endl;
+
 	markChoice();
-	gridMain->printGameGrid();
 
-	//grid.printGameGrid(mark_cross);
+	std::cout << "Congratulations!" << std::endl;
 
-
+	std::cin.get();
 	std::cin.get();
 }
 
 void markChoice()
 {
-	std::cout << "what mark would you like to be? (X/O)\n";
+
+	GameGrid* gridMain = new GameGrid;
+	Cross* mark_cross = new Cross;
+	Nought* mark_nought = new Nought;
+
+	gridMain->printNumberedGameGrid();
+
+	std::cout << "what mark would you like to be? (X/O)\nInput 1 to quit. Choice: ";
 	char markingChoice;
 	std::cin >> markingChoice;
-	enum position {
-		topLeft = 1, topMiddle, topRight, middleLeft, middleMiddle, middleRight, bottomLeft, bottomMiddle, bottomRight
-	};
 
-	if (markingChoice == 'X' || markingChoice == 'O' || markingChoice == 'x' || markingChoice == 'o') {
-		std::cout << "\nwhere would you like to place your cursor? (1-9): ";
-		int markingPlace;
-		std::cin >> markingPlace;
+	while (markingChoice != 1)
+	{
+		if (markingChoice == 'X' || markingChoice == 'O' || markingChoice == 'x' || markingChoice == 'o')
+		{
+			std::cout << "\nwhere would you like to place your cursor? (1-9): ";
+			int markingPlace;
+			std::cin >> markingPlace;
 
-		if (markingChoice == 'x') {
-			Cross* mark_cross = new Cross;
-			GameGrid grid;
-			grid.markArea(mark_cross, markingPlace);
-		}
-		else {
-			Nought* mark_nought = new Nought;
+			if (markingChoice == 'x' || markingChoice == 'X') 
+			{
+				gridMain->markArea(mark_cross, markingPlace);
+				gridMain->printGameGrid();
+
+				if (gridMain->winCondition(mark_cross)) {
+					std::cout << mark_cross->mark << " WON!\n";
+					return;
+				}
+				if (gridMain->checkGridValue(markingPlace)==true) {
+					markingChoice = 'o';
+				}
+				else {
+					markingChoice = 'x';
+				}
+			}
+			else 
+			{
+				gridMain->markArea(mark_nought, markingPlace);
+				gridMain->printGameGrid();
+
+				if (gridMain->winCondition(mark_nought)) {
+					std::cout << mark_nought->mark << " won!";
+					return;
+				}
+				if (gridMain->checkGridValue(markingPlace)==true) {
+					markingChoice = 'x';
+				}
+				else {
+					markingChoice = 'o';
+				}
+			}
 		}
 
 
 	}
 
 	std::cin.get();
+}
+
+void printNumberGrid()
+{
+	GameGrid gridNumber;
+	gridNumber.printNumberedGameGrid();
 }

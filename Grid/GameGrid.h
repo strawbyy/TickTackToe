@@ -7,6 +7,8 @@ public:
 	void printGameGrid();
 	void printNumberedGameGrid() const;
 	void markArea(Marks*, int);
+	bool winCondition(Marks*);
+	bool checkGridValue(int);
 	enum position{};
 	~GameGrid();
 private:
