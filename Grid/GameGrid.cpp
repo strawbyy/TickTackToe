@@ -158,68 +158,24 @@ bool GameGrid::checkGridValue(int place)
 {
 	switch (place) {
 	case 1:
-		if (a == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return a == ' ';
 	case 2:
-		if (b == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return b == ' ';
 	case 3:
-		if (c == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return c == ' ';
 	case 4:
-		if (d == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return d == ' ';
 	case 5:
-		if (e == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return e == ' ';
 	case 6:
-		if (f == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return f == ' ';
 	case 7:
-		if (g == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return g == ' ';
 	case 8:
-		if (h == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return h == ' ';
 	case 9:
-		if (i == ' ') {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return i == ' ';
+
 	}
 }
 

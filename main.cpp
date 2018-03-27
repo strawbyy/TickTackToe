@@ -42,6 +42,12 @@ void markChoice()
 
 			if (markingChoice == 'x' || markingChoice == 'X') 
 			{
+				if (gridMain->checkGridValue(markingPlace) == true) {
+					markingChoice = 'o';
+				}
+				else {
+					markingChoice = 'x';
+				}
 				gridMain->markArea(mark_cross, markingPlace);
 				gridMain->printGameGrid();
 
@@ -49,27 +55,21 @@ void markChoice()
 					std::cout << mark_cross->mark << " WON!\n";
 					return;
 				}
-				if (gridMain->checkGridValue(markingPlace)==true) {
-					markingChoice = 'o';
-				}
-				else {
-					markingChoice = 'x';
-				}
 			}
 			else 
 			{
+				if (gridMain->checkGridValue(markingPlace) == true) {
+					markingChoice = 'x';
+				}
+				else {
+					markingChoice = 'o';
+				}
 				gridMain->markArea(mark_nought, markingPlace);
 				gridMain->printGameGrid();
 
 				if (gridMain->winCondition(mark_nought)) {
 					std::cout << mark_nought->mark << " won!";
 					return;
-				}
-				if (gridMain->checkGridValue(markingPlace)==true) {
-					markingChoice = 'x';
-				}
-				else {
-					markingChoice = 'o';
 				}
 			}
 		}
