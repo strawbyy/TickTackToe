@@ -39,7 +39,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			a = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n1: the place is marked already" << std::endl;
 		}
 		break;
 	case topMiddle:
@@ -48,7 +48,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			b = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n2: the place is marked already" << std::endl;
 		}
 		break;
 	case topRight:
@@ -57,7 +57,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			c = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n3: the place is marked already" << std::endl;
 		}
 		break;
 	case middleLeft:
@@ -66,7 +66,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			d = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n4: the place is marked already" << std::endl;
 		}
 		break;
 	case middleMiddle:
@@ -75,7 +75,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			e = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n5: the place is marked already" << std::endl;
 		}
 		break;
 	case middleRight:
@@ -84,7 +84,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			f = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n6: the place is marked already" << std::endl;
 		};
 		break;
 	case bottomLeft:
@@ -93,7 +93,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			g = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n7: the place is marked already" << std::endl;
 		}
 		break;
 	case bottomMiddle:
@@ -101,7 +101,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			h = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already\n" << std::endl;
+			std::cout << "\n8: the place is marked already\n" << std::endl;
 		}
 		break;
 	default:
@@ -109,7 +109,7 @@ void GameGrid::markArea(Marks* markType, int position) {
 			i = markType->mark;
 		}
 		else {
-			std::cout << "\nthe place is marked already" << std::endl;
+			std::cout << "\n9: the place is marked already" << std::endl;
 		}
 	}
 }
@@ -177,6 +177,18 @@ bool GameGrid::checkGridValue(int place)
 		return i == ' ';
 
 	}
+}
+
+void GameGrid::gridCleaner() {
+	a = ' ';
+	b = ' ';
+	c = ' ';
+	d = ' ';
+	e = ' ';
+	f = ' ';
+	g = ' ';
+	h = ' ';
+	i = ' ';
 }
 
 GameGrid::~GameGrid()

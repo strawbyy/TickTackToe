@@ -5,6 +5,8 @@
 #include "Grid\GameGrid.h"
 
 void markChoice();
+void gridReset();
+void gridWipe();
 void printNumberGrid();
 
 int main()
@@ -49,6 +51,7 @@ void markChoice()
 					markingChoice = 'x';
 				}
 				gridMain->markArea(mark_cross, markingPlace);
+				gridWipe();
 				gridMain->printGameGrid();
 
 				if (gridMain->winCondition(mark_cross)) {
@@ -65,6 +68,7 @@ void markChoice()
 					markingChoice = 'o';
 				}
 				gridMain->markArea(mark_nought, markingPlace);
+				gridWipe();
 				gridMain->printGameGrid();
 
 				if (gridMain->winCondition(mark_nought)) {
@@ -84,4 +88,15 @@ void printNumberGrid()
 {
 	GameGrid gridNumber;
 	gridNumber.printNumberedGameGrid();
+}
+
+void gridWipe() {
+	system("CLS");
+	std::cout << "----------------Tick Tac Toe-----------------\n\n";
+}
+
+void gridReset() {
+	GameGrid gridWiper;
+	gridWiper.gridCleaner();
+	std::cout << "It was a tie!" << std::endl;
 }
