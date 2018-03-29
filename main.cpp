@@ -8,14 +8,17 @@ void markChoice();
 void gridReset();
 void gridWipe();
 void printNumberGrid();
+void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid);
+void markFixer(Marks* markObj, GameGrid* gridObj, int markingPlace);
+void checkWin(Marks* marksObj, GameGrid* gridObj);
+
+char markingChoice;
 
 int main()
 {
 	std::cout << "Welcome to this game of Tic Tac Toe\n\n" << std::endl;
 
 	markChoice();
-
-	std::cout << "Congratulations!" << std::endl;
 
 	std::cin.get();
 	std::cin.get();
@@ -31,7 +34,6 @@ void markChoice()
 	gridMain->printNumberedGameGrid();
 
 	std::cout << "what mark would you like to be? (X/O)\nInput 1 to quit. Choice: ";
-	char markingChoice;
 	std::cin >> markingChoice;
 
 	while (markingChoice != 1)
@@ -42,39 +44,17 @@ void markChoice()
 			int markingPlace;
 			std::cin >> markingPlace;
 
-			if (markingChoice == 'x' || markingChoice == 'X') 
+			if (markingChoice == 'x' || markingChoice == 'X')
 			{
-				if (gridMain->checkGridValue(markingPlace) == true) {
-					markingChoice = 'o';
-				}
-				else {
-					markingChoice = 'x';
-				}
-				gridMain->markArea(mark_cross, markingPlace);
-				gridWipe();
-				gridMain->printGameGrid();
-
-				if (gridMain->winCondition(mark_cross)) {
-					std::cout << mark_cross->mark << " WON!\n";
-					return;
-				}
+				markFixer(mark_cross, gridMain, markingPlace);
+				placeMark(mark_cross, markingPlace, gridMain);
+				checkWin(mark_cross, gridMain);
 			}
-			else 
+			else // So if it's an O.
 			{
-				if (gridMain->checkGridValue(markingPlace) == true) {
-					markingChoice = 'x';
-				}
-				else {
-					markingChoice = 'o';
-				}
-				gridMain->markArea(mark_nought, markingPlace);
-				gridWipe();
-				gridMain->printGameGrid();
-
-				if (gridMain->winCondition(mark_nought)) {
-					std::cout << mark_nought->mark << " won!";
-					return;
-				}
+				markFixer(mark_nought, gridMain, markingPlace);
+				placeMark(mark_nought, markingPlace, gridMain);
+				checkWin(mark_nought, gridMain);
 			}
 		}
 
@@ -99,4 +79,34 @@ void gridReset() {
 	GameGrid gridWiper;
 	gridWiper.gridCleaner();
 	std::cout << "It was a tie!" << std::endl;
+}
+
+void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid) {
+	grid->markArea(marksObj, markingPlace);
+	gridWipe();
+	grid->printGameGrid();
+}
+
+void checkWin(Marks* marksObj, GameGrid* gridObj) {
+	if (gridObj->winCondition(marksObj)) {
+		std::cout << marksObj->mark << " won! \n";
+		std::cout << "To exit, hit enter" << std::endl;
+		std::cin.get();
+		exit(0);
+	}
+}
+
+// this is to ensure the user can place his own mark even after he made a mistake, choosing a spot with an existing mark
+void markFixer(Marks* markObj, GameGrid* gridObj, int markingPlace) {
+	if (gridObj->checkGridValue(markingPlace) == true) {
+		if (markObj->mark == 'O') {
+			markingChoice = 'X';
+		}
+		else {
+			markingChoice = 'O';
+		}
+	}
+	else {
+		markingChoice = markObj->mark;
+	}
 }

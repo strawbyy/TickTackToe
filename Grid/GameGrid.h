@@ -10,6 +10,7 @@ public:
 	bool winCondition(Marks*);
 	bool checkGridValue(int);
 	enum position{};
+	bool playerTurn;
 	void gridCleaner();
 	~GameGrid();
 private:
