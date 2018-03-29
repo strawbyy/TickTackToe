@@ -1,5 +1,7 @@
 #include "GameGrid.h"
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 enum position {
 	topLeft = 1, topMiddle, topRight, middleLeft, middleMiddle, middleRight, bottomLeft, bottomMiddle, bottomRight
@@ -34,83 +36,31 @@ void GameGrid::markArea(Marks* markType, int position) {
 	switch (position)
 	{
 	case topLeft:
-		if (a == ' ')
-		{
-			a = markType->mark;
-		}
-		else {
-			std::cout << "\n1: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(a, markType);
 		break;
 	case topMiddle:
-		if (b == ' ')
-		{
-			b = markType->mark;
-		}
-		else {
-			std::cout << "\n2: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(b, markType);
 		break;
 	case topRight:
-		if (c == ' ')
-		{
-			c = markType->mark;
-		}
-		else {
-			std::cout << "\n3: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(c, markType);
 		break;
 	case middleLeft:
-		if (d == ' ')
-		{
-			d = markType->mark;
-		}
-		else {
-			std::cout << "\n4: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(d, markType);
 		break;
 	case middleMiddle:
-		if (e == ' ')
-		{
-			e = markType->mark;
-		}
-		else {
-			std::cout << "\n5: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(e, markType);
 		break;
 	case middleRight:
-		if (f == ' ')
-		{
-			f = markType->mark;
-		}
-		else {
-			std::cout << "\n6: the place is marked already" << std::endl;
-		};
+		checkPositionStatus(f, markType);
 		break;
 	case bottomLeft:
-		if (g == ' ')
-		{
-			g = markType->mark;
-		}
-		else {
-			std::cout << "\n7: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(g, markType);
 		break;
 	case bottomMiddle:
-		if (h == ' ') {
-			h = markType->mark;
-		}
-		else {
-			std::cout << "\n8: the place is marked already\n" << std::endl;
-		}
+		checkPositionStatus(h, markType);
 		break;
 	default:
-		if (i == ' ') {
-			i = markType->mark;
-		}
-		else {
-			std::cout << "\n9: the place is marked already" << std::endl;
-		}
+		checkPositionStatus(i, markType);
 	}
 }
 
@@ -189,6 +139,17 @@ void GameGrid::gridCleaner() {
 	g = ' ';
 	h = ' ';
 	i = ' ';
+}
+
+void GameGrid::checkPositionStatus(char& letter, Marks* markType) {
+	if (letter == ' ')
+	{
+		letter = markType->mark;
+	}
+	else {
+		std::cout << "-the place is marked already" << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 }
 
 GameGrid::~GameGrid()

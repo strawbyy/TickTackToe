@@ -11,6 +11,7 @@ public:
 	bool checkGridValue(int);
 	enum position{};
 	bool playerTurn;
+	void checkPositionStatus(char&, Marks*);
 	void gridCleaner();
 	~GameGrid();
 private:

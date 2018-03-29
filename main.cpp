@@ -5,31 +5,30 @@
 #include "Grid\GameGrid.h"
 
 void markChoice();
-void gridReset();
+void gridReset(GameGrid* gridWiper);
 void gridWipe();
 void printNumberGrid();
 void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid);
 void markFixer(Marks* markObj, GameGrid* gridObj, int markingPlace);
 void checkWin(Marks* marksObj, GameGrid* gridObj);
+void gameMenu();
 
 char markingChoice;
+
+GameGrid* gridMain = new GameGrid;
+Cross* mark_cross = new Cross;
+Nought* mark_nought = new Nought;
 
 int main()
 {
 	std::cout << "Welcome to this game of Tic Tac Toe\n\n" << std::endl;
-
 	markChoice();
-
 	std::cin.get();
 	std::cin.get();
 }
 
 void markChoice()
 {
-
-	GameGrid* gridMain = new GameGrid;
-	Cross* mark_cross = new Cross;
-	Nought* mark_nought = new Nought;
 
 	gridMain->printNumberedGameGrid();
 
@@ -41,6 +40,7 @@ void markChoice()
 		if (markingChoice == 'X' || markingChoice == 'O' || markingChoice == 'x' || markingChoice == 'o')
 		{
 			std::cout << "\nwhere would you like to place your cursor? (1-9): ";
+			
 			int markingPlace;
 			std::cin >> markingPlace;
 
@@ -75,10 +75,9 @@ void gridWipe() {
 	std::cout << "----------------Tick Tac Toe-----------------\n\n";
 }
 
-void gridReset() {
-	GameGrid gridWiper;
-	gridWiper.gridCleaner();
-	std::cout << "It was a tie!" << std::endl;
+void gridReset(GameGrid* gridWiper) {
+	gridWiper->gridCleaner();
+	printNumberGrid();
 }
 
 void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid) {
@@ -90,9 +89,7 @@ void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid) {
 void checkWin(Marks* marksObj, GameGrid* gridObj) {
 	if (gridObj->winCondition(marksObj)) {
 		std::cout << marksObj->mark << " won! \n";
-		std::cout << "To exit, hit enter" << std::endl;
-		std::cin.get();
-		exit(0);
+		gameMenu();
 	}
 }
 
@@ -108,5 +105,25 @@ void markFixer(Marks* markObj, GameGrid* gridObj, int markingPlace) {
 	}
 	else {
 		markingChoice = markObj->mark;
+	}
+}
+
+void gameMenu() {
+	std::cout << "What would you like to do?" << std::endl;
+	std::cout << "1: Play another game, 2: Exit" << std::endl;
+	
+	int choice;
+	std::cin >> choice;
+
+	switch (choice) {
+	case 1:
+		gridReset(gridMain);
+		int main();
+		break;
+	case 2:
+		exit(0);
+		break;
+	default:
+		return;
 	}
 }
