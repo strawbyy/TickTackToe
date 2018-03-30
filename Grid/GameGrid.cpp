@@ -1,7 +1,14 @@
 #include "GameGrid.h"
+#include "../Marks/Cross.h"
+#include "../Marks/Nought.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <ctime>
+#include <cstdlib>
+
+Cross* crossObj = new Cross;
+Nought* noughtObj = new Nought;
 
 enum position {
 	topLeft = 1, topMiddle, topRight, middleLeft, middleMiddle, middleRight, bottomLeft, bottomMiddle, bottomRight
@@ -36,33 +43,37 @@ void GameGrid::markArea(Marks* markType, int position) {
 	switch (position)
 	{
 	case topLeft:
-		checkPositionStatus(a, markType);
+		placePositionHuman(a, markType);
 		break;
 	case topMiddle:
-		checkPositionStatus(b, markType);
+		placePositionHuman(b, markType);
 		break;
 	case topRight:
-		checkPositionStatus(c, markType);
+		placePositionHuman(c, markType);
 		break;
 	case middleLeft:
-		checkPositionStatus(d, markType);
+		placePositionHuman(d, markType);
 		break;
 	case middleMiddle:
-		checkPositionStatus(e, markType);
+		placePositionHuman(e, markType);
 		break;
 	case middleRight:
-		checkPositionStatus(f, markType);
+		placePositionHuman(f, markType);
 		break;
 	case bottomLeft:
-		checkPositionStatus(g, markType);
+		placePositionHuman(g, markType);
 		break;
 	case bottomMiddle:
-		checkPositionStatus(h, markType);
+		placePositionHuman(h, markType);
 		break;
+	case bottomRight:
+		placePositionHuman(i, markType);
 	default:
-		checkPositionStatus(i, markType);
+		return;
 	}
 }
+
+
 
 bool GameGrid::winCondition(Marks* markType)
 {
@@ -141,15 +152,51 @@ void GameGrid::gridCleaner() {
 	i = ' ';
 }
 
-void GameGrid::checkPositionStatus(char& letter, Marks* markType) {
-	if (letter == ' ')
-	{
+bool GameGrid::checkPositionStatus(char& letter, Marks* markType) {
+	if (letter == ' ') {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+void GameGrid::placePositionHuman(char& letter, Marks* markType) {
+	if (checkPositionStatus(letter, markType) == false) {
 		letter = markType->mark;
 	}
 	else {
-		std::cout << "-the place is marked already" << std::endl;
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		if (identity != 'c') {
+			std::cout << "-the place is marked already" << std::endl;
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
+		else {
+			if (markType->mark == 'X') {
+				computerOpponent(noughtObj);
+				identity = 'h';
+			}
+			else  {
+				computerOpponent(crossObj);
+				identity = 'h';
+			}
+		}
 	}
+}
+
+
+// :( 
+
+void GameGrid::computerOpponent(Marks* markObj) {
+	identity = 'c'; // for computer.
+	//std::srand(std::time(0));
+	int randomPosition = std::rand() % 10;
+	placePositionComputer(e, markObj);
+}
+
+void GameGrid::placePositionComputer(char &letter, Marks* markType) {
+	//std::srand(std::time(0));
+	int randomPosition = std::rand() % 10;
+	markArea(markType, randomPosition);
 }
 
 GameGrid::~GameGrid()

@@ -8,10 +8,11 @@ void markChoice();
 void gridReset(GameGrid* gridWiper);
 void gridWipe();
 void printNumberGrid();
-void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid);
+void placeMarkHuman(Marks* marksObj, int markingPlace, GameGrid* grid);
 void markFixer(Marks* markObj, GameGrid* gridObj, int markingPlace);
 void checkWin(Marks* marksObj, GameGrid* gridObj);
 void gameMenu();
+void placeMarkComputer(Marks* marksObj, GameGrid* grid);
 
 char markingChoice;
 
@@ -46,15 +47,19 @@ void markChoice()
 
 			if (markingChoice == 'x' || markingChoice == 'X')
 			{
-				markFixer(mark_cross, gridMain, markingPlace);
-				placeMark(mark_cross, markingPlace, gridMain);
+				//markFixer(mark_cross, gridMain, markingPlace);
+				placeMarkHuman(mark_cross, markingPlace, gridMain);
 				checkWin(mark_cross, gridMain);
+				placeMarkComputer(mark_nought, gridMain);
+				checkWin(mark_nought, gridMain);
 			}
 			else // So if it's an O.
 			{
-				markFixer(mark_nought, gridMain, markingPlace);
-				placeMark(mark_nought, markingPlace, gridMain);
+				//markFixer(mark_nought, gridMain, markingPlace);
+				placeMarkHuman(mark_nought, markingPlace, gridMain);
 				checkWin(mark_nought, gridMain);
+				placeMarkComputer(mark_cross, gridMain);
+				checkWin(mark_cross, gridMain);
 			}
 		}
 
@@ -80,11 +85,18 @@ void gridReset(GameGrid* gridWiper) {
 	printNumberGrid();
 }
 
-void placeMark(Marks* marksObj, int markingPlace, GameGrid* grid) {
+void placeMarkHuman(Marks* marksObj, int markingPlace, GameGrid* grid) {
 	grid->markArea(marksObj, markingPlace);
 	gridWipe();
 	grid->printGameGrid();
 }
+
+void placeMarkComputer(Marks* marksObj, GameGrid* grid) {
+	grid->computerOpponent(marksObj);
+	gridWipe();
+	grid->printGameGrid();
+}
+
 
 void checkWin(Marks* marksObj, GameGrid* gridObj) {
 	if (gridObj->winCondition(marksObj)) {
