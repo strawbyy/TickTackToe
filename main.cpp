@@ -36,6 +36,11 @@ void markChoice()
 	std::cout << "what mark would you like to be? (X/O)\nInput 1 to quit. Choice: ";
 	std::cin >> markingChoice;
 
+	if (markingChoice == '1') {
+		exit(0);
+	}
+
+
 	while (markingChoice != 1)
 	{
 		if (markingChoice == 'X' || markingChoice == 'O' || markingChoice == 'x' || markingChoice == 'o')
